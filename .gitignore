@@ -1,0 +1,5 @@
+letopis/local_settings.py
+letopis/private_settings.py
+.idea
+*.db
+*.pyc
