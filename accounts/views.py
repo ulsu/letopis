@@ -18,7 +18,10 @@ def login(request):
             go_next = request.GET['next'] if 'next' in request.GET else '/'
             return HttpResponseRedirect(request.GET['next'])
     else:
-        form = LoginForm() # An unbound form
+        if request.user.is_authenticated():
+            return HttpResponseRedirect('/')
+
+        form = LoginForm()
 
     return render(request, 'accounts/login.html', {
         'form': form,
@@ -26,5 +29,6 @@ def login(request):
         })
 
 def logout(request):
-   auth.logout(request)
-   return HttpResponseRedirect('/')
+    if request.user.is_authenticated():
+        auth.logout(request)
+    return HttpResponseRedirect('/')
